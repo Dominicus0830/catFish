@@ -5,6 +5,8 @@ plugins {
 
 group = 'org.CatAndDomi'
 version = '0.0.0.6'
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -34,10 +36,26 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId = 'org.catAndDomi'
-            artifactId = 'catFish'
+            artifactId = 'CatFish'
             version = '0.0.0.6'
-
             from components.java
+            pom {
+                name = 'CatFish'
+                description = 'domi and cat'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'domi_and_cat'
+                        name = 'domi_and_cat'
+                        email = 'dominicus0830@gmail.com'
+                    }
+                }
+            }
         }
     }
 }
