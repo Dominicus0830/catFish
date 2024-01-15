@@ -50,7 +50,7 @@ public class FileUtils {
         }
     }
 
-    public static YamlConfiguration loadPluginConfig(JavaPlugin plugin,String fileName) {
+    public static YamlConfiguration loadPluginFile(JavaPlugin plugin,String fileName) {
         try {
             YamlConfiguration file = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), fileName + ".yml"));
             log.info(prefix + "성공적으로"+plugin.getName()+"플러그인의"+ fileName + " 파일 로드!");
@@ -62,7 +62,7 @@ public class FileUtils {
         return null;
     }
     //경로 커스텀
-    public static YamlConfiguration loadPluginConfig(JavaPlugin plugin, String fileName, String path) {
+    public static YamlConfiguration loadPluginFile(JavaPlugin plugin, String fileName, String path) {
         try {
             YamlConfiguration file = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/" + path, fileName + ".yml"));
             log.info(prefix + "성공적으로"+plugin.getName()+"플러그인의"+ fileName + " 파일 로드!");
@@ -73,4 +73,6 @@ public class FileUtils {
         }
         return null;
     }
+
+
 }

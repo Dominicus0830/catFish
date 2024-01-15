@@ -1,8 +1,10 @@
 package org.CatAndDomi;
 
+import org.CatAndDomi.utils.ConfigUtils;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 public class CatFish extends JavaPlugin {
@@ -19,6 +21,6 @@ public class CatFish extends JavaPlugin {
         plugin = this;
         log = getLogger();
         log.info("CatFish is enabled!");
-        config = null;
+        config = ConfigUtils.loadPluginConfig(this);
     }
 }
