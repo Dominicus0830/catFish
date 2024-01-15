@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'org.CatAndDomi'
-version = '0.0.0.5'
+version = '0.0.0.6'
 
 repositories {
     mavenCentral()
@@ -25,10 +25,21 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT'
 }
 
-
 compileJava.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'org.catAndDomi'
+            artifactId = 'catFish'
+            version = '0.0.0.6'
+
+            from components.java
+        }
+    }
 }
 
 build {
