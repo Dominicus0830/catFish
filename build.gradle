@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'org.CatAndDomi'
-version = '0.0.0.1'
+version = '0.0.0.3'
 
 repositories {
     mavenCentral()
@@ -25,11 +25,6 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT'
 }
 
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
-
 publishing {
     publications {
         maven(MavenPublication) {
@@ -38,9 +33,9 @@ publishing {
     }
 }
 
-wrapper {
-    gradleVersion = "7.5"
-    distributionType = Wrapper.DistributionType.ALL
+build {
+    sourceCompatibility = 17
+    targetCompatibility = 17
 }
 
 test {
