@@ -6,7 +6,7 @@ public enum ComponentType {
 
     NONE(Component.class);
 
-    final Class<? extends Component> clz;
+    public final Class<? extends Component> clz;
 
     ComponentType(Class<? extends Component> clz) {
         this.clz = clz;

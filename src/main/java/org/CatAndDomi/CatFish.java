@@ -25,11 +25,29 @@ public class CatFish extends JavaPlugin {
         return plugin;
     }
 
+    public Component getComponent(JavaPlugin plugin, ComponentType componentType) {
+        for(Component component : componentmap.get(plugin)) {
+            if(component.getClass().equals(componentType.clz)) {
+                return component;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void onEnable() {
         plugin = this;
         log = getLogger();
         log.info("CatFish is enabled!");
         config = ConfigUtils.loadPluginConfig(this);
+    }
+
+    @Override
+    public void onDisable() {
+        for(Map.Entry<JavaPlugin, ArrayList<Component>> entry : componentmap.entrySet()) {
+            for(Component component : entry.getValue()) {
+                component.serverclose();
+            }
+        }
     }
 }
