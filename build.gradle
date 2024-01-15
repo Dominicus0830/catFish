@@ -26,6 +26,11 @@ dependencies {
 }
 
 
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 build {
     sourceCompatibility = 17
     targetCompatibility = 17
