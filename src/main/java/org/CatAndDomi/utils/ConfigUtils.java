@@ -15,19 +15,19 @@ public class ConfigUtils {
     public static YamlConfiguration loadPluginConfig(JavaPlugin plugin) {
         File config = new File(plugin.getDataFolder(), "config.yml");
         if (!config.exists()) {
-            log.info(prefix+plugin.getName()+"ÇÃ·¯±×ÀÎÀÇ config ÆÄÀÏ ¸øÃ£À½! ÆÄÀÏ »õ·Î »ı¼º...");
+            log.info(prefix+plugin.getName()+"í”ŒëŸ¬ê·¸ì¸ì˜ config íŒŒì¼ ëª»ì°¾ìŒ! íŒŒì¼ ìƒˆë¡œ ìƒì„±...");
             plugin.saveResource("config.yml", false);
         }
-        log.info(prefix+ "¼º°øÀûÀ¸·Î config ÆÄÀÏ ·Îµå!");
+        log.info(prefix+ "ì„±ê³µì ìœ¼ë¡œ config íŒŒì¼ ë¡œë“œ!");
         return YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
     }
 
     public static void savePluginConfig(JavaPlugin plugin, YamlConfiguration config){
         try{
             config.save(new File(plugin.getDataFolder(), "config.yml"));
-            log.info(prefix+plugin.getName()+"ÇÃ·¯±×ÀÎÀÇ config ÆÄÀÏ ÀúÀå ¼º°ø!");
+            log.info(prefix+plugin.getName()+"í”ŒëŸ¬ê·¸ì¸ì˜ config íŒŒì¼ ì €ì¥ ì„±ê³µ!");
         }catch (Exception e){
-            log.warning(prefix+plugin.getName()+"ÇÃ·¯±×ÀÎÀÇ config ÆÄÀÏ ÀúÀå ½ÇÆĞ!");
+            log.warning(prefix+plugin.getName()+"í”ŒëŸ¬ê·¸ì¸ì˜ config íŒŒì¼ ì €ì¥ ì‹¤íŒ¨!");
             e.printStackTrace();
         }
     }
@@ -36,7 +36,7 @@ public class ConfigUtils {
         try{
             config.save(new File(plugin.getDataFolder(), "config.yml"));
         }catch (Exception e){
-            log.warning(prefix+plugin.getName()+"ÇÃ·¯±×ÀÎÀÇ config ÆÄÀÏ ¸®·Îµå ½ÇÆĞ! ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾ÊÀ½!");
+            log.warning(prefix+plugin.getName()+"í”ŒëŸ¬ê·¸ì¸ì˜ config íŒŒì¼ ë¦¬ë¡œë“œ ì‹¤íŒ¨! íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŒ!");
             e.printStackTrace();
         }
         return null;
