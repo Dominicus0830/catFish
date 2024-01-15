@@ -10,7 +10,7 @@ public class CatFish extends JavaPlugin {
     public Logger log;
     public YamlConfiguration config;
     private static CatFish plugin;
-    public static JavaPlugin getInstance() {
+    public static CatFish getInstance() {
         return plugin;
     }
 
