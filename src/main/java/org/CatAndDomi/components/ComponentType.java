@@ -4,7 +4,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public enum ComponentType {
 
-    NONE(Component.class);
+    NONE(Component.class),
+    MESSAGE(MessageComponent.class)
+    ;
 
     public final Class<? extends Component> clz;
 
