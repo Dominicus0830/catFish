@@ -13,7 +13,6 @@ public class FileUtils {
     private static final String prefix = plugin.prefix;
 
 
-
     //create file
     public static YamlConfiguration createCustomFile(JavaPlugin plugin,String fileName) {
         try {
@@ -31,7 +30,6 @@ public class FileUtils {
             return null;
         }
     }
-
     //경로 커스텀
     public static YamlConfiguration createCustomFile(JavaPlugin plugin,String fileName, String path) {
         try {
@@ -50,6 +48,8 @@ public class FileUtils {
         }
     }
 
+
+    //파일 로드
     public static YamlConfiguration loadPluginFile(JavaPlugin plugin,String fileName) {
         try {
             YamlConfiguration file = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), fileName + ".yml"));
@@ -75,4 +75,24 @@ public class FileUtils {
     }
 
 
+    //파일 저장
+    public static void savePluginFile(JavaPlugin plugin, YamlConfiguration file, String fileName) {
+        try {
+            file.save(new File(plugin.getDataFolder(), fileName + ".yml"));
+            log.info(prefix + "성공적으로"+plugin.getName()+"플러그인의"+ fileName + " 파일 저장!");
+        } catch (Exception e) {
+            log.warning(prefix + ""+plugin.getName()+"플러그인의"+ fileName + " 파일 저장 실패!");
+            e.printStackTrace();
+        }
+    }
+    //경로 커스텀
+    public static void savePluginFile(JavaPlugin plugin, YamlConfiguration file, String fileName, String path) {
+        try {
+            file.save(new File(plugin.getDataFolder() + "/" + path, fileName + ".yml"));
+            log.info(prefix + "성공적으로"+plugin.getName()+"플러그인의"+ fileName + " 파일 저장!");
+        } catch (Exception e) {
+            log.warning(prefix + ""+plugin.getName()+"플러그인의"+ fileName + " 파일 저장 실패!");
+            e.printStackTrace();
+        }
+    }
 }
