@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Logger;
 
 public class CatFish extends JavaPlugin {
-    public final String prefix = "¡×7[¡×eCatFish¡×7] ";
+    public final String prefix = "Â§7[Â§eCatFishÂ§7] ";
     public Logger log;
     public YamlConfiguration config;
     private static CatFish plugin;
