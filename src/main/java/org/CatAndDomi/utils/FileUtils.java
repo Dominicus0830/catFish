@@ -4,6 +4,7 @@ import org.CatAndDomi.CatFish;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 public class FileUtils {
@@ -13,20 +14,63 @@ public class FileUtils {
 
 
 
-    public static YamlConfiguration loadPluginConfig(JavaPlugin plugin) {
+    //create file
+    public static YamlConfiguration createCustomData(JavaPlugin plugin,String fileName) {
         try {
-
+            File file = new File(plugin.getDataFolder(), fileName + ".yml");
+            if (!file.exists()) {
+                file.createNewFile();
+                log.info(prefix + "성공적으로"+plugin.getName()+"플러그인의"+ fileName + " 파일 생성!");
+                return YamlConfiguration.loadConfiguration(file);
+            }
+            log.info(prefix + "성공적으로"+plugin.getName()+"플러그인의"+ fileName + " 파일 로드!");
+            return YamlConfiguration.loadConfiguration(file);
         } catch (Exception e) {
+            log.warning(prefix +plugin.getName()+"플러그인의"+ fileName + " 파일 생성 실패!");
+            e.printStackTrace();
+            return null;
+        }
+    }
 
+    //경로 커스텀
+    public static YamlConfiguration createCustomData(JavaPlugin plugin,String fileName, String path) {
+        try {
+            File file = new File(plugin.getDataFolder() + "/" + path, fileName + ".yml");
+            if (!file.exists()) {
+                file.createNewFile();
+                log.info(prefix + "성공적으로"+plugin.getName()+"플러그인의"+ fileName + " 파일 생성!");
+                return YamlConfiguration.loadConfiguration(file);
+            }
+            log.info(prefix + "성공적으로"+plugin.getName()+"플러그인의"+ fileName + " 파일 로드!");
+            return YamlConfiguration.loadConfiguration(file);
+        } catch (Exception e) {
+            log.warning(prefix +plugin.getName()+"플러그인의"+ fileName + " 파일 생성 실패!");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static YamlConfiguration loadPluginConfig(JavaPlugin plugin,String fileName) {
+        try {
+            YamlConfiguration file = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), fileName + ".yml"));
+            log.info(prefix + "성공적으로"+plugin.getName()+"플러그인의"+ fileName + " 파일 로드!");
+            return file;
+        } catch (Exception e) {
+            log.warning(prefix + ""+plugin.getName()+"플러그인의"+ fileName + " 파일 로드 실패!");
+            e.printStackTrace();
         }
         return null;
     }
     //경로 커스텀
-    public static YamlConfiguration loadPluginConfig(JavaPlugin plugin, String fileName) {
+    public static YamlConfiguration loadPluginConfig(JavaPlugin plugin, String fileName, String path) {
         try {
-            YamlConfiguration file = YamlConfiguration.loadConfiguration(plugin.getDataFolder());
+            YamlConfiguration file = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/" + path, fileName + ".yml"));
+            log.info(prefix + "성공적으로"+plugin.getName()+"플러그인의"+ fileName + " 파일 로드!");
+            return file;
         } catch (Exception e) {
-
+            log.warning(prefix + ""+plugin.getName()+"플러그인의"+ fileName + " 파일 로드 실패!");
+            e.printStackTrace();
         }
+        return null;
     }
 }
