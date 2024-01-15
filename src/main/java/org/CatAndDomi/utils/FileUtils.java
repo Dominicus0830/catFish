@@ -15,7 +15,7 @@ public class FileUtils {
 
 
     //create file
-    public static YamlConfiguration createCustomData(JavaPlugin plugin,String fileName) {
+    public static YamlConfiguration createCustomFile(JavaPlugin plugin,String fileName) {
         try {
             File file = new File(plugin.getDataFolder(), fileName + ".yml");
             if (!file.exists()) {
@@ -33,7 +33,7 @@ public class FileUtils {
     }
 
     //경로 커스텀
-    public static YamlConfiguration createCustomData(JavaPlugin plugin,String fileName, String path) {
+    public static YamlConfiguration createCustomFile(JavaPlugin plugin,String fileName, String path) {
         try {
             File file = new File(plugin.getDataFolder() + "/" + path, fileName + ".yml");
             if (!file.exists()) {
