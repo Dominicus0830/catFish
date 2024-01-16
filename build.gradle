@@ -10,7 +10,9 @@ targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
-    mavenLocal()
+    maven {
+        url 'https://repo.dmulloy2.net/repository/public/'
+    }
     maven {
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
         content {
