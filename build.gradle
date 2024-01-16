@@ -10,8 +10,18 @@ targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
+
+    //NMS
     maven {
         url 'https://repo.dmulloy2.net/repository/public/'
+    }
+    maven {
+        url 'https://libraries.minecraft.net/'
+        metadataSources {
+            mavenPom()
+            artifact()
+            ignoreGradleMetadataRedirection()
+        }
     }
     maven {
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
@@ -20,6 +30,9 @@ repositories {
             includeGroup 'org.spigotmc'
         }
     }
+
+
+
     maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url = 'https://oss.sonatype.org/content/repositories/central' }
 }
