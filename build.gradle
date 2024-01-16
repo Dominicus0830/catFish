@@ -23,6 +23,8 @@ repositories {
             ignoreGradleMetadataRedirection()
         }
     }
+
+
     maven {
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
         content {
@@ -30,9 +32,6 @@ repositories {
             includeGroup 'org.spigotmc'
         }
     }
-
-
-
     maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url = 'https://oss.sonatype.org/content/repositories/central' }
 }
