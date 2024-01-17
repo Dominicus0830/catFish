@@ -11,13 +11,11 @@ import java.util.UUID;
 public class DataUtils {
     private JavaPlugin plugin;
     private YamlConfiguration config;
-    private String prefix;
     private final Map<String, Object> data = new HashMap<>();
 
     public DataUtils(JavaPlugin plugin) {
         this.plugin = plugin;
         this.config = ConfigUtils.loadPluginConfig(plugin);
-        this.prefix = ColorUtils.applyColor(config.getString("Settings.prefix"));
     }
 
     public YamlConfiguration getConfig() {
@@ -26,14 +24,6 @@ public class DataUtils {
 
     public void setConfig(YamlConfiguration config) {
         this.config = config;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
     }
 
     public void initUserData(UUID uuid) {
@@ -109,7 +99,6 @@ public class DataUtils {
 
     public void reload() {
         config = ConfigUtils.reloadPluginConfig(plugin, config);
-        prefix = ColorUtils.applyColor(config.getString("Settings.prefix"));
     }
 
     public void save() {
