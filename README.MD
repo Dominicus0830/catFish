@@ -94,7 +94,7 @@ public class APIFunction {
 ```java
 InventoryAPI inv = new InventoryAPI(null, "Inventory Name", 54, true, plugin);
 // InventoryHolder, Title Size, UsePage, Plugin
-ItemStack pane = new ItemStack(Material.COD);
+ItemStack COD = new ItemStack(Material.COD);
 
 ItemStack prev = NBT.setStringTag(new ItemStack(Material.DIAMOND), "prev", "true");
 ItemMeta im = prev.getItemMeta();
@@ -108,7 +108,7 @@ im.setDisplayName("다음 페이지");
 next.setItemMeta(im);
 //setting next item
 
-inv.setPageTools(new ItemStack[]{pane, pane, prev, pane, pane, pane, next, pane, pane});
+inv.setPageTools(new ItemStack[]{COD, COD, prev, COD, COD, COD, next, COD, COD});
 //must be 9 items
 inv.addPageContent(/*ItemStack[]*/);
 inv.update();
