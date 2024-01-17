@@ -2,8 +2,11 @@ package org.CatAndDomi;
 
 import org.CatAndDomi.components.Component;
 import org.CatAndDomi.components.ComponentType;
+import org.CatAndDomi.components.NBT;
 import org.CatAndDomi.utils.ConfigUtils;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -25,8 +28,8 @@ public class CatFish extends JavaPlugin {
     }
 
     public Component getComponent(JavaPlugin plugin, ComponentType componentType) {
-        for(Component component : componentmap.get(plugin)) {
-            if(component.getClass().equals(componentType.clz)) {
+        for (Component component : componentmap.get(plugin)) {
+            if (component.getClass().equals(componentType.clz)) {
                 return component;
             }
         }
@@ -43,8 +46,8 @@ public class CatFish extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for(Map.Entry<JavaPlugin, ArrayList<Component>> entry : componentmap.entrySet()) {
-            for(Component component : entry.getValue()) {
+        for (Map.Entry<JavaPlugin, ArrayList<Component>> entry : componentmap.entrySet()) {
+            for (Component component : entry.getValue()) {
                 component.serverclose();
             }
         }
