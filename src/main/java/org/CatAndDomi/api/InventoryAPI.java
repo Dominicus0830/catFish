@@ -91,10 +91,16 @@ public class InventoryAPI extends CraftInventoryCustom {
         return pageItems;
     }
 
+
     public boolean setPageContent(int page, ItemStack[] items) {
         if (page < 0 || page > pages) return false;
         pageItems.put(page, items);
         return true;
+    }
+
+    public void addPageContent(ItemStack[] items) {
+        pageItems.put(pages, items);
+        pages++;
     }
 
 
