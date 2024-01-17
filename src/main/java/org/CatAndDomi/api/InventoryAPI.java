@@ -20,6 +20,7 @@ public class InventoryAPI extends CraftInventoryCustom {
     private Map<Integer, ItemStack[]> pageItems = new HashMap<>();
     private final String handlerName;
     private final UUID uuid;
+    private Object obj;
 
     public InventoryAPI(InventoryHolder holder, String title, int size, JavaPlugin plugin) {
         super(holder, size, title);
@@ -162,5 +163,13 @@ public class InventoryAPI extends CraftInventoryCustom {
 
     public UUID getUniqueId() {
         return uuid;
+    }
+
+    public Object getObj() {
+        return obj;
+    }
+
+    public void setObj(Object obj) {
+        this.obj = obj;
     }
 }
