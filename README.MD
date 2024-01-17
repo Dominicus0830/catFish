@@ -45,6 +45,51 @@ if(InventoryUtils.hasEnoughSpace(p.getInventory().getStorageContents(), item)) {
 }
 ```
 
+### DataUtils 
+##### MainClass
+```
+public class APITest extends JavaPlugin {
+    private static APITest plugin;
+    public static DataUtils data;
+    public static APITest getInstance() {
+        return plugin;
+    }
+
+    @Override
+    public void onEnable() {
+        plugin = this;
+        data = new DataUtils(this);
+    }
+    ...
+}
+```
+##### FunctionClass
+```java
+public class APIFunction {
+    private static final APITest plugin = APITest.getInstance();
+    private static final DataUtils data = plugin.data;
+
+    public static void getItem(Player player, Inventory inv) {
+        ItemStack stack = inv.getItem(1);
+        data.getConfig().set("test", stack);
+    }
+    
+    public static void setItem(Player player, Inventory inv) {
+        ItemStack stack = data.getConfig().getItemStack("test");
+        inv.setItem(1, stack);
+    }
+
+    public static void ifItem(Player player, Inventory inv) {
+        if(data.getConfig().getItemStack("test") == null) {
+            System.out.println("null");
+            return;
+        }else {
+            System.out.println("not null");
+        }
+    }
+}
+```
+
 ### InventoryAPI
 ```java
 InventoryAPI inv = new InventoryAPI(null, "Inventory Name", 54, true, plugin);
