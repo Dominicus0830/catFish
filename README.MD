@@ -133,3 +133,7 @@ public void onInventoryClick(InventoryClickEvent e) {
     }
 }
 ```
+
+#### [New Inventory System](https://wiki.ryseinventory.de/).
+
+#### [Item Builder](https://github.com/atozuser0224/ItemBuilder)
