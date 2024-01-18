@@ -87,6 +87,17 @@ public class InventoryAPI extends CraftInventoryCustom {
         this.pageTools = pageTools;
     }
 
+    public boolean setPageItems(Map<Integer, ItemStack[]> pageItems) {
+        this.pageItems = pageItems;
+        return true;
+    }
+
+    public boolean setPageItem(int slot, ItemStack item) {
+        if (slot < 0 || slot > 44) return false;
+        pageItems.get(currentPage)[slot] = item;
+        return true;
+    }
+
 
     public Map<Integer, ItemStack[]> getPageItems() {
         return pageItems;
