@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'org.CatAndDomi'
-version = '0.0.0.9'
+version = '0.0.0.10'
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
@@ -53,7 +53,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = 'org.catAndDomi'
             artifactId = 'CatFish'
-            version = '0.0.0.9'
+            version = '0.0.0.10'
             from components.java
             pom {
                 name = 'CatFish'
