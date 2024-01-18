@@ -12,14 +12,14 @@ import java.util.Map;
 import java.util.UUID;
 
 public class InventoryAPI extends CraftInventoryCustom {
+    private final String handlerName;
+    private final UUID uuid;
     private boolean usePage;
     private boolean usePageTools;
     private int pages = 0;
     private int currentPage = 0;
     private ItemStack[] pageTools = new ItemStack[8];
     private Map<Integer, ItemStack[]> pageItems = new HashMap<>();
-    private final String handlerName;
-    private final UUID uuid;
     private Object obj;
 
     public InventoryAPI(InventoryHolder holder, String title, int size, JavaPlugin plugin) {
@@ -31,14 +31,54 @@ public class InventoryAPI extends CraftInventoryCustom {
 
     public InventoryAPI(InventoryHolder holder, String title, int size, boolean usePage, JavaPlugin plugin) {
         super(holder, size, title);
+        this.handlerName = plugin.getName();
         this.usePage = usePage;
-        handlerName = plugin.getName();
         usePageTools = true;
         uuid = UUID.randomUUID();
     }
 
+    public Object getObj() {
+        return obj;
+    }
+
+    public void setObj(Object obj) {
+        this.obj = obj;
+    }
+
+    public UUID getUniqueId() {
+        return uuid;
+    }
+
+    public String getHandlerName() {
+        return handlerName;
+    }
+
+    public boolean isValidHandler(JavaPlugin plugin) {
+        return plugin.getName().equals(handlerName);
+    }
+
     public boolean isUsePage() {
         return usePage;
+    }
+
+    public boolean isUsePageTools() {
+        return usePageTools;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public ItemStack[] getPageTools() {
+        return pageTools;
+    }
+
+    public Map<Integer, ItemStack[]> getPageItems() {
+        return pageItems;
     }
 
     public void setUsePage(boolean usePage) {
@@ -46,45 +86,24 @@ public class InventoryAPI extends CraftInventoryCustom {
         usePageTools = true;
     }
 
-
-    public boolean isUsePageTools() {
-        return usePageTools;
-    }
-
     public void setUsePageTools(boolean usePageTools) {
         this.usePageTools = usePageTools;
-    }
-
-
-    public int getPages() {
-        return pages;
     }
 
     public void setPages(int pages) {
         this.pages = pages;
     }
 
-
-    public int getCurrentPage() {
-        return currentPage;
-    }
-
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
 
-
-    public ItemStack[] getPageTools() {
-        return pageTools;
+    public void setPageTools(ItemStack[] pageTools) {
+        this.pageTools = pageTools;
     }
 
     public void setPageTool(int index, ItemStack item) {
         pageTools[index] = item;
-    }
-
-
-    public void setPageTools(ItemStack[] pageTools) {
-        this.pageTools = pageTools;
     }
 
     public boolean setPageItems(Map<Integer, ItemStack[]> pageItems) {
@@ -98,23 +117,17 @@ public class InventoryAPI extends CraftInventoryCustom {
         return true;
     }
 
-
-    public Map<Integer, ItemStack[]> getPageItems() {
-        return pageItems;
-    }
-
-
     public boolean setPageContent(int page, ItemStack[] items) {
         if (page < 0 || page > pages) return false;
         pageItems.put(page, items);
         return true;
     }
 
+    // add pageContent
     public void addPageContent(ItemStack[] items) {
         pageItems.put(pages, items);
         pages++;
     }
-
 
     public void update() {
         clear();
@@ -135,7 +148,6 @@ public class InventoryAPI extends CraftInventoryCustom {
             }
         }
     }
-
 
     public boolean nextPage() {
         if (!usePage) return false;
@@ -159,28 +171,5 @@ public class InventoryAPI extends CraftInventoryCustom {
         currentPage = page;
         update();
         return true;
-    }
-
-
-
-    public String getHandlerName() {
-        return handlerName;
-    }
-
-
-    public boolean isValidHandler(JavaPlugin plugin) {
-        return plugin.getName().equals(handlerName);
-    }
-
-    public UUID getUniqueId() {
-        return uuid;
-    }
-
-    public Object getObj() {
-        return obj;
-    }
-
-    public void setObj(Object obj) {
-        this.obj = obj;
     }
 }
