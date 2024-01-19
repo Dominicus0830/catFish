@@ -17,7 +17,7 @@ public class PageInventory {
     public int size = 0;
     public final int invsize;
     public final Map<Integer, Inventory> invmap = new HashMap<>();
-    final PageInventoryComponent component;
+    public final PageInventoryComponent component;
 
     public PageInventory(String name, PageInventoryComponent component, Integer invsize) {
         this.name = name;
