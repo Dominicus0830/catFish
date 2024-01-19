@@ -62,7 +62,7 @@ public class PageInventory {
 
     public void createpage(int page) {
         if(page>-1) {
-            while(size<page) {
+            while(size<=page) {
                 addpage();
             }
         }
