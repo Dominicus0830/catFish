@@ -28,10 +28,9 @@ public class PageInventory {
     public PageInventory(PageInventoryComponent component, YamlConfiguration config) {
         this.component = component;
         this.name = config.getString("name");
-        this.size = config.getInt("size");
         this.invsize = config.getInt("invsize");
+        createpage(config.getInt("size"));
         for(int i = 0; i<size; i++) {
-            addpage();
             Inventory inv = invmap.get(i);
             for(int j = 0; j<invsize; j++) {
                 if(config.isSet(i+"."+j)) {
