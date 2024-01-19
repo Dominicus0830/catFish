@@ -30,8 +30,7 @@ public class PageInventoryComponent extends Component {
             File file1 = new File(plugin.getDataFolder()+"/inventorydata/" + key + ".yml");
             YamlConfiguration config1 = YamlConfiguration.loadConfiguration(file);
             try{
-                PageInventory inv = clz.getDeclaredConstructor(new Class[]{PageInventoryComponent.class, YamlConfiguration.class}).newInstance(this, config1);
-                invmap.put(key, inv);
+                invmap.put(key, clz.getDeclaredConstructor(new Class[]{PageInventoryComponent.class, YamlConfiguration.class}).newInstance(this, config1));
             }catch(Exception e) {
                 e.printStackTrace();
             }
