@@ -12,7 +12,7 @@ maven {
 
 ## 디펜던시 - Dependencies
 ```gradle
-implementation 'com.github.Dominicus0830:catFish:0.0.0.8'
+implementation 'com.github.Dominicus0830:catFish:0.0.0.10'
 ```
 
 ## API
@@ -134,6 +134,89 @@ public void onInventoryClick(InventoryClickEvent e) {
 }
 ```
 
-#### [New Inventory System](https://wiki.ryseinventory.de/).
+#### MessageComponent
+```java
+public CatFish cf;
+    public MessageComponent component;
 
-#### [Item Builder](https://github.com/atozuser0224/ItemBuilder)
+    public void setUpCatFish() {
+        if(Bukkit.getPluginManager().isPluginEnabled("CatFish")) {
+            cf = (CatFish) Bukkit.getPluginManager().getPlugin("CatFish");
+        }
+    }
+
+    public void onEnable() {
+        setUpCatFish();
+        new CatFishBuilder(this).addComponents(ComponentType.MESSAGE).build();
+        component = (MessageComponent) cf.getComponent(this, ComponentType.MESSAGE);
+        component.addMessages("접두어", "&f[ &e냥 &f] ");
+        component.addMessages("얌얌얌", Arrays.asList("고", "냥", "이", "팔딱팔딱"));
+        component.load();
+        System.out.println(component.getString("접두어"));
+        System.out.println(component.getList("얌얌얌"));
+    }
+}
+```
+
+#### PageInventoryComponent
+```java
+public CatFish cf;
+public PageInventoryComponent component;
+
+public void setUpCatFish() {
+    if(Bukkit.getPluginManager().isPluginEnabled("CatFish")) {
+           cf = (CatFish) Bukkit.getPluginManager().getPlugin("CatFish");
+    }
+}
+
+public void onEnable() {
+    setUpCatFish();
+    new CatFishBuilder(this).addComponents(ComponentType.PAGEINVENTORY).build();
+    component = (PageInventoryComponent) cf.getComponent(this, ComponentType.PAGEINVENTORY);
+    component.setPageInventoryClass(CustomInventory.class);
+    component.load();
+}
+
+@Override
+public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    if(sender instanceof Player p) {
+        if(!component.isInventory(p.getName())) {
+            component.createInventory(p.getName(), 54);
+            component.getInventory(p.getName()).createpage(0);
+        }
+        component.getInventory(p.getName()).openInventory(p, 0);
+    }
+    return super.onCommand(sender, command, label, args);
+}
+```
+CustomInventory.class
+```java
+public class CustomInventory extends PageInventory {
+
+    public CustomInventory(String name, PageInventoryComponent component, Integer invsize) {
+        super(name, component, invsize);
+    }
+
+    public CustomInventory(PageInventoryComponent component, YamlConfiguration config) {
+        super(component, config);
+    }
+
+    @Override
+    public String InventoryName() {
+        return name+"의 창고";
+    }
+
+    @Override
+    public void close(InventoryCloseEvent e, InventoryOpener opener) {
+        super.close(e, opener);
+        for(int a = 0;a<invsize;a++) {
+            Inventory inv = e.getInventory();
+            if(inv.getItem(a)!=null) {
+                setItem(opener.page, a, inv.getItem(a));
+            }else {
+                setItem(opener.page, a, new ItemStack(Material.AIR));
+            }
+        }
+    }
+}
+```

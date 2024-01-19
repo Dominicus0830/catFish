@@ -1,10 +1,10 @@
-package org.CatAndDomi.components;
+package org.CatAndDomi.components.message;
 
+import org.CatAndDomi.components.Component;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

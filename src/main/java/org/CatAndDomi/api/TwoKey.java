@@ -1,4 +1,4 @@
-package org.CatAndDomi.utils;
+package org.CatAndDomi.api;
 
 public class TwoKey<K1, K2> {
 

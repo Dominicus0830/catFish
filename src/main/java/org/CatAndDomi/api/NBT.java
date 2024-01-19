@@ -1,8 +1,7 @@
-package org.CatAndDomi.components;
+package org.CatAndDomi.api;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagString;
-import org.CatAndDomi.api.ItemStackSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;
@@ -17,7 +16,7 @@ import java.util.Map;
 public class NBT {
 
     public static NBTTagCompound getTagCompound(net.minecraft.world.item.ItemStack item) {
-        return item.t() ? item.v() : new NBTTagCompound();
+        return item.u() ? item.v() : new NBTTagCompound();
     }
 
     /**
