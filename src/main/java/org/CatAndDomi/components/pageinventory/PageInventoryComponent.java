@@ -37,6 +37,12 @@ public class PageInventoryComponent extends Component {
         }
     }
 
+    @Override
+    public void serverclose() {
+        super.serverclose();
+        save();
+    }
+
     public boolean isOpener(Player p) {
         return openermap.get(p)!=null;
     }
