@@ -19,7 +19,7 @@ public class InventoryAPI extends CraftInventoryCustom {
     private int pages = 0;
     private int currentPage = 0;
     private ItemStack[] pageTools = new ItemStack[8];
-    private Map<Integer, ItemStack[]> pageItems = new HashMap<>();
+    private Map<Integer, ItemStack[]>   pageItems = new HashMap<>();
     private Object obj;
 
     public InventoryAPI(InventoryHolder holder, String title, int size, JavaPlugin plugin) {

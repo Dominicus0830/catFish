@@ -17,7 +17,7 @@ import java.util.Map;
 public class NBT {
 
     public static NBTTagCompound getTagCompound(net.minecraft.world.item.ItemStack item) {
-        return item.t() ? item.v() : new NBTTagCompound();
+        return item.u() ? item.v() : new NBTTagCompound();
     }
 
     /**
