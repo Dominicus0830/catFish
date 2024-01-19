@@ -220,3 +220,96 @@ public class CustomInventory extends PageInventory {
     }
 }
 ```
+
+## 인벤토리 API
+
+#### 인벤토리 예제
+```java
+   RyseInventory.builder()
+        .title("Delay Preview")
+        .rows(3)
+        .delay(3, TimeSetting.SECONDS)
+        .provider(new InventoryProvider() {
+            @Override
+            public void update(Player player, InventoryContents contents) {
+                    Material material = Material.values()[new Random().nextInt(Material.values().length)];
+                    contents.update(0, new ItemStack(material));
+            }
+            @Override
+            public void init(Player player, InventoryContents contents) {
+                    contents.set(0, new ItemStack(Material.DIAMOND_SWORD));
+            }
+        })    
+        .build(this)
+        .openAll();
+```
+
+#### 아이템 생성 예
+```java
+contents.set(0, new ItemStack(Material.DIAMOND_SWORD));
+```
+
+#### 아이템 클릭 이벤트
+```java
+contents.set(8, IntelligentItem.of(new ItemStack(), event -> {
+    your code
+}));
+```
+
+#### 인벤토리 클릭 이벤트
+```java
+RyseInventory.builder()
+                .title("listener preview")
+                .rows(3)
+                .listener(new EventCreator<>(InventoryClickEvent.class, event -> {
+                    if(event.getClickedInventory() == null) return;
+
+                    if(event.getSlot() == 1)
+                        event.getClickedInventory().setItem(5, new ItemStack(Material.DIAMOND));
+                }))
+                .provider(new InventoryProvider() {
+                    @Override
+                    public void init(Player player, InventoryContents contents) {
+                    }
+                })
+                .build(this)
+                .openAll();
+```
+#### 인벤토리 페이지 예제
+```java
+RyseInventory.builder()
+                .title("fixedPageSize preview")
+                .rows(3)
+                .fixedPageSize(5)
+                .provider(new InventoryProvider() {
+                    @Override
+                    public void init(Player player, InventoryContents contents) {
+                        Pagination pagination = contents.pagination();
+                        contents.set(0, IntelligentItem.of(new ItemStack(Material.ARROW), event -> {
+                            if (pagination.isFirst()) {
+                                player.sendMessage("You are on the first page");
+                                return;
+                            }
+
+                            RyseInventory currentInventory = pagination.inventory();
+                            currentInventory.open(player, pagination.previous().page());
+                        }));
+
+                        contents.set(4, new ItemBuilder(getRandomMaterial()).displayName("TEST - " + getRandomNumber(1, Integer.MAX_VALUE - 1)).build());
+
+                        contents.set(8, IntelligentItem.of(new ItemStack(Material.ARROW), event -> {
+                            if (pagination.isLast()) {
+                                player.sendMessage("You are on the last page");
+                                return;
+                            }
+
+                            RyseInventory currentInventory = pagination.inventory();
+                            currentInventory.open(player, pagination.next().page());
+                        }));
+                    }
+                })
+                .build(this)
+                .openAll();
+```
+
+[인벤토리 API에 대한 자세한 정보](https://wiki.ryseinventory.de/classes/class-methods/ryseinventory/full-examples)
