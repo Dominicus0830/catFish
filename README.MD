@@ -157,3 +157,66 @@ public CatFish cf;
     }
 }
 ```
+
+#### PageInventoryComponent
+```java
+public CatFish cf;
+public PageInventoryComponent component;
+
+public void setUpCatFish() {
+    if(Bukkit.getPluginManager().isPluginEnabled("CatFish")) {
+           cf = (CatFish) Bukkit.getPluginManager().getPlugin("CatFish");
+    }
+}
+
+public void onEnable() {
+    setUpCatFish();
+    new CatFishBuilder(this).addComponents(ComponentType.PAGEINVENTORY).build();
+    component = (PageInventoryComponent) cf.getComponent(this, ComponentType.PAGEINVENTORY);
+    component.setPageInventoryClass(CustomInventory.class);
+    component.load();
+}
+
+@Override
+public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    if(sender instanceof Player p) {
+        if(!component.isInventory(p.getName())) {
+            component.createInventory(p.getName(), 54);
+            component.getInventory(p.getName()).createpage(0);
+        }
+        component.getInventory(p.getName()).openInventory(p, 0);
+    }
+    return super.onCommand(sender, command, label, args);
+}
+```
+CustomInventory.class
+```java
+public class CustomInventory extends PageInventory {
+
+    public CustomInventory(String name, PageInventoryComponent component, Integer invsize) {
+        super(name, component, invsize);
+    }
+
+    public CustomInventory(PageInventoryComponent component, YamlConfiguration config) {
+        super(component, config);
+    }
+
+    @Override
+    public String InventoryName() {
+        return name+"의 창고";
+    }
+
+    @Override
+    public void close(InventoryCloseEvent e, InventoryOpener opener) {
+        super.close(e, opener);
+        for(int a = 0;a<invsize;a++) {
+            Inventory inv = e.getInventory();
+            if(inv.getItem(a)!=null) {
+                setItem(opener.page, a, inv.getItem(a));
+            }else {
+                setItem(opener.page, a, new ItemStack(Material.AIR));
+            }
+        }
+    }
+}
+```
