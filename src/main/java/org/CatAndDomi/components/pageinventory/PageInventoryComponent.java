@@ -24,6 +24,9 @@ public class PageInventoryComponent extends Component {
         Bukkit.getPluginManager().registerEvents(new Events(this), plugin);
         clz = PageInventory.class;
         clz1 = InventoryOpener.class;
+    }
+
+    public void load() {
         File file = new File(plugin.getDataFolder()+"/inventorylist.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         for(String key : config.getKeys(true)) {
