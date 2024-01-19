@@ -29,8 +29,11 @@ public class PageInventoryComponent extends Component {
         for(String key : config.getKeys(true)) {
             File file1 = new File(plugin.getDataFolder()+"/inventorydata/" + key + ".yml");
             YamlConfiguration config1 = YamlConfiguration.loadConfiguration(file);
-            PageInventory inv = new PageInventory(this, config1);
-            invmap.put(key, inv);
+            try{
+                PageInventory inv = clz.getDeclaredConstructor(new Class[]{PageInventoryComponent.class, YamlConfiguration.class}).newInstance(this, config1);
+                invmap.put(key, inv);
+            }catch(Exception e) {
+            }
         }
     }
 
