@@ -1,8 +1,7 @@
-package org.CatAndDomi.components;
+package org.CatAndDomi.api;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagString;
-import org.CatAndDomi.api.ItemStackSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;

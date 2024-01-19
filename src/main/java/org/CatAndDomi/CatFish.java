@@ -2,11 +2,8 @@ package org.CatAndDomi;
 
 import org.CatAndDomi.components.Component;
 import org.CatAndDomi.components.ComponentType;
-import org.CatAndDomi.components.NBT;
 import org.CatAndDomi.utils.ConfigUtils;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;

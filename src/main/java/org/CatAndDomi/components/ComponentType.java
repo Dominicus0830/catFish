@@ -1,5 +1,6 @@
 package org.CatAndDomi.components;
 
+import org.CatAndDomi.components.message.MessageComponent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public enum ComponentType {

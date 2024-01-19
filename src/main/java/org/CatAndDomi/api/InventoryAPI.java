@@ -1,8 +1,6 @@
 package org.CatAndDomi.api;
 
-import org.CatAndDomi.components.NBT;
 import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftInventoryCustom;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
