@@ -133,3 +133,27 @@ public void onInventoryClick(InventoryClickEvent e) {
     }
 }
 ```
+
+#### MessageComponent
+```java
+public CatFish cf;
+    public MessageComponent component;
+
+    public void setUpCatFish() {
+        if(Bukkit.getPluginManager().isPluginEnabled("CatFish")) {
+            cf = (CatFish) Bukkit.getPluginManager().getPlugin("CatFish");
+        }
+    }
+
+    public void onEnable() {
+        setUpCatFish();
+        new CatFishBuilder(this).addComponents(ComponentType.MESSAGE).build();
+        component = (MessageComponent) cf.getComponent(this, ComponentType.MESSAGE);
+        component.addMessages("접두어", "&f[ &e냥 &f] ");
+        component.addMessages("얌얌얌", Arrays.asList("고", "냥", "이", "팔딱팔딱"));
+        component.load();
+        System.out.println(component.getString("접두어"));
+        System.out.println(component.getList("얌얌얌"));
+    }
+}
+```
