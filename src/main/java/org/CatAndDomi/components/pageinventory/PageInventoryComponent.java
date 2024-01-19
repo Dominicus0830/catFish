@@ -26,7 +26,9 @@ public class PageInventoryComponent extends Component {
         clz1 = InventoryOpener.class;
     }
 
+    @Override
     public void load() {
+        super.load();
         File file = new File(plugin.getDataFolder()+"/inventorylist.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         for(String key : config.getKeys(true)) {

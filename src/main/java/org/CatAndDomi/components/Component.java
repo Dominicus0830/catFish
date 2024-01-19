@@ -14,4 +14,8 @@ public class Component {
 
     }
 
+    public void load() {
+
+    }
+
 }

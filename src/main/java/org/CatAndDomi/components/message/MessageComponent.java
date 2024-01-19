@@ -48,8 +48,9 @@ public class MessageComponent extends Component {
         return messagelist.get(key);
     }
 
-
+    @Override
     public void load() {
+        super.load();
         File file = new File(plugin.getDataFolder()+"/message.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         for(Map.Entry<String, Object> entry : messagelist.entrySet()) {

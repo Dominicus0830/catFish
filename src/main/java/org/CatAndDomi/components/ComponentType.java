@@ -1,5 +1,6 @@
 package org.CatAndDomi.components;
 
+import org.CatAndDomi.components.math.MathTriangleComponent;
 import org.CatAndDomi.components.message.MessageComponent;
 import org.CatAndDomi.components.pageinventory.PageInventoryComponent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,7 +9,8 @@ public enum ComponentType {
 
     NONE(Component.class),
     MESSAGE(MessageComponent.class),
-    PAGEINVENTORY(PageInventoryComponent.class)
+    PAGEINVENTORY(PageInventoryComponent.class),
+    MATH_TRIANGLE(MathTriangleComponent.class)
     ;
 
     public final Class<? extends Component> clz;
