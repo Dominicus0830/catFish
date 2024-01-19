@@ -37,6 +37,17 @@ public class PageInventoryComponent extends Component {
         }
     }
 
+    public boolean isOpener(Player p) {
+        return openermap.get(p)!=null;
+    }
+
+    public InventoryOpener getOpener(Player p) {
+        if(isOpener(p)) {
+            return openermap.get(p);
+        }
+        return null;
+    }
+
     public void save() {
         File file = new File(plugin.getDataFolder()+"/inventorylist.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);

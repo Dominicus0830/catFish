@@ -21,7 +21,7 @@ public class Events implements Listener {
         if(e.getPlayer() instanceof Player p) {
             if(component.openermap.get(p)!=null) {
                 InventoryOpener opener = component.openermap.get(p);
-                opener.openning.close(e);
+                opener.openning.close(e, opener);
                 component.openermap.remove(p);
             }
         }
@@ -36,7 +36,7 @@ public class Events implements Listener {
     public void click(InventoryClickEvent e) {
         if(e.getWhoClicked() instanceof Player p) {
             if(component.openermap.get(p)!=null) {
-                component.openermap.get(p).openning.click(e);
+                component.openermap.get(p).openning.click(e, component.openermap.get(p));
             }
         }
     }

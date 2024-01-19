@@ -112,11 +112,11 @@ public class PageInventory {
 
     }
 
-    public void close(InventoryCloseEvent e) {
+    public void close(InventoryCloseEvent e, InventoryOpener opener) {
 
     }
 
-    public void click(InventoryClickEvent e) {
+    public void click(InventoryClickEvent e, InventoryOpener opener) {
 
     }
 
