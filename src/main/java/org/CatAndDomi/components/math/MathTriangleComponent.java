@@ -20,6 +20,7 @@ public class MathTriangleComponent extends Component {
         super.load();
         for(int a = 0; a<3600; a++) {
             double d = ((double) a)/10.0d;
+            d*=Math.PI/180D;
             cos.put(a, Math.cos(d));
             sin.put(a, Math.sin(d));
         }
