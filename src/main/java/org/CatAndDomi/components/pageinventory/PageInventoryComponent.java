@@ -33,6 +33,7 @@ public class PageInventoryComponent extends Component {
                 PageInventory inv = clz.getDeclaredConstructor(new Class[]{PageInventoryComponent.class, YamlConfiguration.class}).newInstance(this, config1);
                 invmap.put(key, inv);
             }catch(Exception e) {
+                e.printStackTrace();
             }
         }
     }
