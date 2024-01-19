@@ -80,9 +80,11 @@ public class PageInventory {
         Inventory inv = Bukkit.createInventory(null, invsize, InventoryName());
         Inventory in = invmap.get(page);
         for(int i = 0; i<invsize; i++) {
-            ItemStack a = in.getItem(i).clone();
-            setitem_opening(a, p, page);
-            inv.setItem(i, a);
+            if(in.getItem(i)!=null) {
+                ItemStack a = in.getItem(i).clone();
+                setitem_opening(a, p, page);
+                inv.setItem(i, a);
+            }
         }
         setinv_opening(inv, p, page);
         p.openInventory(inv);
