@@ -15,6 +15,11 @@ public class CommandData {
     ArgsTypes[] classes;
     Method cmdMethod;
     public String helpmessage;
+    final CommandComponent component;
+
+    public CommandData(CommandComponent component) {
+        this.component = component;
+    }
 
     public boolean isCommand(String string) {
         return commandDataMap.get(string)!=null;
@@ -29,14 +34,14 @@ public class CommandData {
             return;
         }
         if(strings.length==1) {
-            CommandData data = new CommandData();
+            CommandData data = new CommandData(component);
             data.setHelpmessage(helpmessage);
             data.setClasses(classes);
             data.setMethod(method);
             commandDataMap.put(strings[0], data);
         }else {
             if(!isCommand(strings[0])) {
-                commandDataMap.put(strings[0], new CommandData());
+                commandDataMap.put(strings[0], new CommandData(component));
             }
             getCommand(strings[0]).addCommand(method, classes, helpmessage, Arrays.copyOfRange(strings, 1, strings.length));
         }
@@ -55,7 +60,7 @@ public class CommandData {
     }
 
     public boolean InvokeMethod(CommandSender commandSender, String... object) {
-        Object[] objects = new Object[object.length+1];
+        Object[] objects = new Object[classes.length+2];
         objects[0] = commandSender;
         if(classes!=null) {
             for(int a = 0; a<classes.length; a++) {
@@ -84,8 +89,10 @@ public class CommandData {
                 }
             }
         }
+        String[] ss = Arrays.copyOfRange(object, classes.length, object.length);
+        objects[objects.length-1] = ss;
         try{
-            cmdMethod.invoke(objects);
+            cmdMethod.invoke(component, objects);
             return true;
         }catch(Exception e) {
             return false;
@@ -93,6 +100,9 @@ public class CommandData {
     }
 
     public boolean SendCommand(CommandSender commandSender, String... objects) {
+        if(objects.length==0) {
+            return InvokeMethod(commandSender, objects);
+        }
         String obj = objects[0];
         if(isCommand(obj)) {
             return getCommand(obj).SendCommand(commandSender, Arrays.copyOfRange(objects, 1, objects.length));

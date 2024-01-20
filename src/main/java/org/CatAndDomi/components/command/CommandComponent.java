@@ -24,14 +24,14 @@ public class CommandComponent extends Component implements CommandExecutor, TabC
             return;
         }
         if(strings.length==1) {
-            CommandData data = new CommandData();
+            CommandData data = new CommandData(this);
             data.setHelpmessage(helpmessage);
             data.setClasses(classes);
             data.setMethod(method);
             commandDataMap.put(strings[0], data);
         }else {
             if(!isCommand(strings[0])) {
-                commandDataMap.put(strings[0], new CommandData());
+                commandDataMap.put(strings[0], new CommandData(this));
             }
             getCommand(strings[0]).addCommand(method, classes, helpmessage, Arrays.copyOfRange(strings, 1, strings.length));
         }
@@ -63,17 +63,7 @@ public class CommandComponent extends Component implements CommandExecutor, TabC
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
         ArrayList<String> list = new ArrayList<>();
-        int a = strings.length;
-        if(a<1) {
-            return list;
-        }
-        if(a==1&&!commandDataMap.isEmpty()) {
-            for(Map.Entry<String, CommandData> entry : commandDataMap.entrySet()) {
-                list.add(entry.getKey());
-            }
-        }else if(isCommand(strings[0])) {
-            getCommand(strings[0]).tabComplete(list, Arrays.copyOfRange(strings, 1, a));
-        }
+        getCommand(command.getName()).tabComplete(list, strings);
         return list;
     }
 }
