@@ -1,6 +1,7 @@
 package org.CatAndDomi.components.command;
 
 import org.CatAndDomi.components.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,6 +34,15 @@ public class CommandComponent extends Component implements CommandExecutor, TabC
                 commandDataMap.put(strings[0], new CommandData());
             }
             getCommand(strings[0]).addCommand(method, classes, helpmessage, Arrays.copyOfRange(strings, 1, strings.length));
+        }
+    }
+
+    @Override
+    public void load() {
+        super.load();
+        for(Map.Entry<String, CommandData> entry : commandDataMap.entrySet()) {
+            Bukkit.getPluginCommand(entry.getKey()).setExecutor(this);
+            Bukkit.getPluginCommand(entry.getKey()).setTabCompleter(this);
         }
     }
 
