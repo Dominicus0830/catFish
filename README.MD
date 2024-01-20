@@ -220,3 +220,54 @@ public class CustomInventory extends PageInventory {
     }
 }
 ```
+
+#### CommandComponent
+```java
+public CatFish cf;
+public CommandComponent component;
+ 
+public void setUpCatFish() {
+    if(Bukkit.getPluginManager().isPluginEnabled("CatFish")) {
+        cf = (CatFish) Bukkit.getPluginManager().getPlugin("CatFish");
+    }
+}
+
+public static void cmd(CommandSender commandSender, String message, String... strings) {
+    if(commandSender instanceof Player p) {
+        String s = message;
+        for(String ss : strings) {
+            s+=" " + ss;
+        }
+        Bukkit.broadcastMessage(p.getName() + ": " + s);
+    }
+}
+
+public static void cmd1(CommandSender commandSender, String... strings) {
+    if(commandSender instanceof Player p) {
+        Bukkit.broadcastMessage(p.getName() + ": 뭐");
+    }
+}
+
+public static void cmd2(CommandSender commandSender, Integer i, String... strings) {
+    if(commandSender instanceof Player p) {
+        Bukkit.broadcastMessage(p.getName() + ": " + i);
+    }
+}
+
+public void onEnable() {
+    setUpCatFish();
+    new CatFishBuilder(this).addComponents(ComponentType.COMMAND).build();
+    component = (CommandComponent) cf.getComponent(this, ComponentType.COMMAND);
+    try {
+        component.addCommand(this.getClass().getMethod("cmd", CommandSender.class, String.class, String[].class)
+                , new ArgsTypes[]{ArgsTypes.STRING}, "/확성기 발언 <STRING>", "확성기", "발언");
+        component.addCommand(this.getClass().getMethod("cmd1", CommandSender.class, String[].class)
+                , new ArgsTypes[]{}, "/확성기 뭐", "확성기", "뭐");
+        component.addCommand(this.getClass().getMethod("cmd2", CommandSender.class, Integer.class, String[].class)
+                , new ArgsTypes[]{ArgsTypes.INTEGER}, "/확성기 숫자 <INT>", "확성기", "숫자");
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
+    component.load();
+}
+```
