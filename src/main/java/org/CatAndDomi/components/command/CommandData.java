@@ -21,6 +21,9 @@ public class CommandData {
         if(helpmessage!=null) {
             commandSender.sendMessage(helpmessage);
         }
+        for(Map.Entry<String, CommandData> entry : commandDataMap.entrySet()) {
+            entry.getValue().SendHelp(commandSender);
+        }
     }
 
     public CommandData(CommandComponent component) {
@@ -66,40 +69,42 @@ public class CommandData {
     }
 
     public boolean InvokeMethod(CommandSender commandSender, String... object) {
+        if(classes==null) {
+            SendHelp(commandSender);
+            return false;
+        }
         Object[] objects = new Object[classes.length+2];
         objects[0] = commandSender;
-        if(classes!=null) {
-            if(classes.length>object.length) {
-                SendHelp(commandSender);
-                return false;
-            }
-            for(int a = 0; a<classes.length; a++) {
-                switch(classes[a]) {
-                    case INTEGER:
-                        try{
-                            objects[a+1] = Integer.parseInt(object[a]);
-                        }catch(Exception e) {
-                            commandSender.sendMessage(classes[a].help);
-                            return false;
-                        }
-                        break;
-                    case DOUBLE:
-                        try{
-                            objects[a+1] = Double.parseDouble(object[a]);
-                        }catch(Exception e) {
-                            commandSender.sendMessage(classes[a].help);
-                            return false;
-                        }
-                        break;
-                    case STRING:
-                        try{
-                            objects[a+1] = object[a];
-                        }catch(Exception e) {
-                            commandSender.sendMessage(classes[a].help);
-                            return false;
-                        }
-                        break;
-                }
+        if(classes.length>object.length) {
+            SendHelp(commandSender);
+            return false;
+        }
+        for(int a = 0; a<classes.length; a++) {
+            switch(classes[a]) {
+                case INTEGER:
+                    try{
+                        objects[a+1] = Integer.parseInt(object[a]);
+                    }catch(Exception e) {
+                        commandSender.sendMessage(classes[a].help);
+                        return false;
+                    }
+                    break;
+                case DOUBLE:
+                    try{
+                        objects[a+1] = Double.parseDouble(object[a]);
+                    }catch(Exception e) {
+                        commandSender.sendMessage(classes[a].help);
+                        return false;
+                    }
+                    break;
+                case STRING:
+                    try{
+                        objects[a+1] = object[a];
+                    }catch(Exception e) {
+                        commandSender.sendMessage(classes[a].help);
+                        return false;
+                    }
+                    break;
             }
         }
         String[] ss = Arrays.copyOfRange(object, classes.length, object.length);
