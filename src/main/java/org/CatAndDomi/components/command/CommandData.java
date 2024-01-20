@@ -17,6 +17,12 @@ public class CommandData {
     public String helpmessage;
     final CommandComponent component;
 
+    public void SendHelp(CommandSender commandSender) {
+        if(helpmessage!=null) {
+            commandSender.sendMessage(helpmessage);
+        }
+    }
+
     public CommandData(CommandComponent component) {
         this.component = component;
     }
@@ -63,12 +69,17 @@ public class CommandData {
         Object[] objects = new Object[classes.length+2];
         objects[0] = commandSender;
         if(classes!=null) {
+            if(classes.length>object.length) {
+                SendHelp(commandSender);
+                return false;
+            }
             for(int a = 0; a<classes.length; a++) {
                 switch(classes[a]) {
                     case INTEGER:
                         try{
                             objects[a+1] = Integer.parseInt(object[a]);
                         }catch(Exception e) {
+                            commandSender.sendMessage(classes[a].help);
                             return false;
                         }
                         break;
@@ -76,6 +87,7 @@ public class CommandData {
                         try{
                             objects[a+1] = Double.parseDouble(object[a]);
                         }catch(Exception e) {
+                            commandSender.sendMessage(classes[a].help);
                             return false;
                         }
                         break;
@@ -83,6 +95,7 @@ public class CommandData {
                         try{
                             objects[a+1] = object[a];
                         }catch(Exception e) {
+                            commandSender.sendMessage(classes[a].help);
                             return false;
                         }
                         break;

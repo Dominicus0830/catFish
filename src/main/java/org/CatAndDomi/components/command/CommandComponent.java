@@ -56,8 +56,7 @@ public class CommandComponent extends Component implements CommandExecutor, TabC
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        getCommand(command.getName()).SendCommand(commandSender, strings);
-        return false;
+        return getCommand(command.getName()).SendCommand(commandSender, strings);
     }
 
     @Override
