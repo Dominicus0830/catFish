@@ -1,6 +1,7 @@
 package org.CatAndDomi.components.command;
 
 import org.CatAndDomi.components.pageinventory.PageInventoryComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 import java.lang.reflect.Method;
@@ -85,7 +86,7 @@ public class CommandData {
                     try{
                         objects[a+1] = Integer.parseInt(object[a]);
                     }catch(Exception e) {
-                        commandSender.sendMessage(classes[a].help);
+                        commandSender.sendMessage(component.lortype.get(classes[a]));
                         return false;
                     }
                     break;
@@ -93,7 +94,7 @@ public class CommandData {
                     try{
                         objects[a+1] = Double.parseDouble(object[a]);
                     }catch(Exception e) {
-                        commandSender.sendMessage(classes[a].help);
+                        commandSender.sendMessage(component.lortype.get(classes[a]));
                         return false;
                     }
                     break;
@@ -101,7 +102,15 @@ public class CommandData {
                     try{
                         objects[a+1] = object[a];
                     }catch(Exception e) {
-                        commandSender.sendMessage(classes[a].help);
+                        commandSender.sendMessage(component.lortype.get(classes[a]));
+                        return false;
+                    }
+                    break;
+                case PLAYER:
+                    try{
+                        objects[a+1] = Bukkit.getPlayer(object[a]);
+                    }catch(Exception e) {
+                        commandSender.sendMessage(component.lortype.get(classes[a]));
                         return false;
                     }
                     break;
@@ -141,7 +150,7 @@ public class CommandData {
         }else if(isCommand(strings[0])) {
             getCommand(strings[0]).tabComplete(list, Arrays.copyOfRange(strings, 1, a));
         }else if(classes!=null&&classes.length>=a){
-            list.add(classes[a-1].argname);
+            list.add(component.tabtype.get(classes[a-1]));
         }
     }
 

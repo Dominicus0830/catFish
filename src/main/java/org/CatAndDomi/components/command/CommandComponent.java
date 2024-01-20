@@ -14,9 +14,23 @@ import java.util.*;
 public class CommandComponent extends Component implements CommandExecutor, TabCompleter {
 
     Map<String, CommandData> commandDataMap = new HashMap<>();
+    Map<ArgsTypes, String> tabtype = new HashMap<>();
+    Map<ArgsTypes, String> lortype = new HashMap<>();
 
     public CommandComponent(JavaPlugin plugin) {
         super(plugin);
+        for(ArgsTypes at : ArgsTypes.values()) {
+            tabtype.put(at, at.argname);
+            lortype.put(at, at.help);
+        }
+    }
+
+    public void setTabMessage(ArgsTypes at, String s) {
+        tabtype.put(at, s);
+    }
+
+    public void setLoreMessage(ArgsTypes at, String s) {
+        lortype.put(at, s);
     }
 
     public void addCommand(Method method, ArgsTypes[] classes, String helpmessage, String... strings) {
