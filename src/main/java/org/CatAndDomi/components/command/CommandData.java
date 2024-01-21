@@ -119,7 +119,7 @@ public class CommandData {
         String[] ss = Arrays.copyOfRange(object, classes.length, object.length);
         objects[objects.length-1] = ss;
         try{
-            cmdMethod.invoke(component, objects);
+            cmdMethod.invoke(component.plugin, objects);
             return true;
         }catch(Exception e) {
             return false;
