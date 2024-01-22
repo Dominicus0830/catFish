@@ -17,7 +17,7 @@ public class InventoryAPI extends CraftInventoryCustom {
     private int pages = 0;
     private int currentPage = 0;
     private ItemStack[] pageTools = new ItemStack[8];
-    private Map<Integer, ItemStack[]>   pageItems = new HashMap<>();
+    private Map<Integer, ItemStack[]> pageItems = new HashMap<>();
     private Object obj;
 
     public InventoryAPI(InventoryHolder holder, String title, int size, JavaPlugin plugin) {
@@ -34,6 +34,7 @@ public class InventoryAPI extends CraftInventoryCustom {
         usePageTools = true;
         uuid = UUID.randomUUID();
     }
+
 
     public Object getObj() {
         return obj;
@@ -59,45 +60,45 @@ public class InventoryAPI extends CraftInventoryCustom {
         return usePage;
     }
 
-    public boolean isUsePageTools() {
-        return usePageTools;
-    }
-
-    public int getPages() {
-        return pages;
-    }
-
-    public int getCurrentPage() {
-        return currentPage;
-    }
-
-    public ItemStack[] getPageTools() {
-        return pageTools;
-    }
-
-    public Map<Integer, ItemStack[]> getPageItems() {
-        return pageItems;
-    }
-
     public void setUsePage(boolean usePage) {
         this.usePage = usePage;
         usePageTools = true;
+    }
+
+    public boolean isUsePageTools() {
+        return usePageTools;
     }
 
     public void setUsePageTools(boolean usePageTools) {
         this.usePageTools = usePageTools;
     }
 
+    public int getPages() {
+        return pages;
+    }
+
     public void setPages(int pages) {
         this.pages = pages;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
     }
 
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
 
+    public ItemStack[] getPageTools() {
+        return pageTools;
+    }
+
     public void setPageTools(ItemStack[] pageTools) {
         this.pageTools = pageTools;
+    }
+
+    public Map<Integer, ItemStack[]> getPageItems() {
+        return pageItems;
     }
 
     public void setPageTool(int index, ItemStack item) {
@@ -109,11 +110,40 @@ public class InventoryAPI extends CraftInventoryCustom {
         return true;
     }
 
-    public boolean setPageItem(int slot, ItemStack item) {
-        if (slot < 0 || slot > 44) return false;
+
+    /**
+     * @param x 0 ~ 8
+     * @param y 0 ~ 5
+     * @param item
+     * @return
+     */
+    public boolean setPageItem(int x, int y, ItemStack item) {
+        int slot = x+y*9;
+        if (slot < 0 || slot > 54) return false;
         pageItems.get(currentPage)[slot] = item;
         return true;
     }
+
+    /**
+     * @param x 0 ~ 8
+     * @param y 0 ~ 5
+     * @param item
+     * @param UsePage
+     * @return
+     */
+    public boolean setPageItem(int x, int y, ItemStack item, boolean usePage) {
+        int slot = x+y*9;
+        if (slot < 0 || slot > 45) return false;
+        pageItems.get(currentPage)[slot] = item;
+        return true;
+    }
+
+
+//    public boolean setPageItem(int slot, ItemStack item) {
+//        if (slot < 0 || slot > 44) return false;
+//        pageItems.get(currentPage)[slot] = item;
+//        return true;
+//    }
 
     public boolean setPageContent(int page, ItemStack[] items) {
         if (page < 0 || page > pages) return false;
@@ -129,7 +159,7 @@ public class InventoryAPI extends CraftInventoryCustom {
 
     public void update() {
         clear();
-        if(pageItems.get(currentPage) != null) {
+        if (pageItems.get(currentPage) != null) {
             for (int i = 0; i < pageItems.get(currentPage).length; i++) {
                 if (pageItems.get(currentPage)[i] != null) {
                     setItem(i, pageItems.get(currentPage)[i]);
