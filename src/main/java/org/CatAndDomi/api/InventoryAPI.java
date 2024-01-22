@@ -117,33 +117,33 @@ public class InventoryAPI extends CraftInventoryCustom {
      * @param item
      * @return
      */
-    public boolean setPageItem(int x, int y, ItemStack item) {
-        int slot = x+y*9;
-        if (slot < 0 || slot > 54) return false;
-        pageItems.get(currentPage)[slot] = item;
-        return true;
-    }
-
-    /**
-     * @param x 0 ~ 8
-     * @param y 0 ~ 5
-     * @param item
-     * @param UsePage
-     * @return
-     */
-    public boolean setPageItem(int x, int y, ItemStack item, boolean usePage) {
-        int slot = x+y*9;
-        if (slot < 0 || slot > 45) return false;
-        pageItems.get(currentPage)[slot] = item;
-        return true;
-    }
-
-
-//    public boolean setPageItem(int slot, ItemStack item) {
-//        if (slot < 0 || slot > 44) return false;
+//    public boolean setPageItem(int x, int y, ItemStack item) {
+//        int slot = x+y*9;
+//        if (slot < 0 || slot > 54) return false;
 //        pageItems.get(currentPage)[slot] = item;
 //        return true;
 //    }
+//
+//    /**
+//     * @param x 0 ~ 8
+//     * @param y 0 ~ 5
+//     * @param item
+//     * @param usePage
+//     * @return
+//     */
+//    public boolean setPageItem(int x, int y, ItemStack item, boolean usePage) {
+//        int slot = x+y*9;
+//        if (slot < 0 || slot > 45) return false;
+//        pageItems.get(currentPage)[slot] = item;
+//        return true;
+//    }
+
+
+    public boolean setPageItem(int slot, ItemStack item) {
+        if (slot < 0 || slot > 44) return false;
+        pageItems.get(currentPage)[slot] = item;
+        return true;
+    }
 
     public boolean setPageContent(int page, ItemStack[] items) {
         if (page < 0 || page > pages) return false;
