@@ -23,5 +23,4 @@ public class CatFishBuilder {
     public void build() {
         CatFish.getInstance().componentmap.put(plugin, components);
     }
-
 }
