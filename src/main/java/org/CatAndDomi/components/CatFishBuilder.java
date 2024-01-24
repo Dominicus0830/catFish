@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class CatFishBuilder {
 
     private final JavaPlugin plugin;
+    private static final CatFish catFish = CatFish.getInstance();
     private ArrayList<Component> components = new ArrayList<>();
 
     public CatFishBuilder(JavaPlugin plugin) {
@@ -21,7 +22,8 @@ public class CatFishBuilder {
     }
 
     public void build() {
-        CatFish.getInstance().componentmap.put(plugin, components);
+        catFish.componentmap.put(plugin, components);
     }
 
 }
+
