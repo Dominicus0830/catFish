@@ -22,7 +22,7 @@ public static YamlConfiguration config;
 public static TestPlugin plugin;
 public void onEnable() {
     plugin = this;
-    config = ConfigUtils.loadDefaultPluginConfig(plugin);
+    config = ConfigUtils.loadPluginConfig(plugin);
 }
 ```
 
