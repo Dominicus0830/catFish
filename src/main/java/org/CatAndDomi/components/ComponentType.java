@@ -1,6 +1,7 @@
 package org.CatAndDomi.components;
 
 import org.CatAndDomi.components.command.CommandComponent;
+import org.CatAndDomi.components.deeplearner.DeepLearnerComponent;
 import org.CatAndDomi.components.math.MathTriangleComponent;
 import org.CatAndDomi.components.message.MessageComponent;
 import org.CatAndDomi.components.pageinventory.PageInventoryComponent;
@@ -12,7 +13,8 @@ public enum ComponentType {
     MESSAGE(MessageComponent.class),
     PAGEINVENTORY(PageInventoryComponent.class),
     MATH_TRIANGLE(MathTriangleComponent.class),
-    COMMAND(CommandComponent.class)
+    COMMAND(CommandComponent.class),
+    DEEPLEARNER(DeepLearnerComponent.class)
     ;
 
     public final Class<? extends Component> clz;
