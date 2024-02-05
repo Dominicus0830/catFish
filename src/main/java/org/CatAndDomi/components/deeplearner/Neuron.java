@@ -1,5 +1,6 @@
 package org.CatAndDomi.components.deeplearner;
 
+import org.CatAndDomi.utils.CatFishMath;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Neuron {
     public Map<Neuron, Double> weight = new HashMap<>();
     public double input;
     public double output;
+    public double errordistance = 0;
 
     public Neuron(Synapse synapse) {
         this.synapse = synapse;
@@ -22,6 +24,15 @@ public class Neuron {
         this.synapse = synapse;
         input = config.getDouble(loc+".input");
         output = config.getDouble(loc+".output");
+        output = config.getDouble(loc+".errordistance");
+    }
+
+    public void setpredict(double d) {
+        errordistance = d-output;
+    }
+
+    public void intoout() {
+        output = CatFishMath.sigmoid(1, input);
     }
 
     public void loadNeurons(YamlConfiguration config, String loc) {
@@ -38,6 +49,7 @@ public class Neuron {
     public void save(YamlConfiguration config, String loc) {
         config.set(loc+".input", input);
         config.set(loc+".output", output);
+        config.set(loc+".errordistance", errordistance);
         ArrayList<Integer> numlist = new ArrayList<>();
         ArrayList<Double> weightlist = new ArrayList<>();
         for(Map.Entry<Neuron, Double> entry : weight.entrySet()) {

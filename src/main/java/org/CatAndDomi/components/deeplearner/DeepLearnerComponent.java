@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +34,24 @@ public class DeepLearnerComponent extends Component {
     }
 
     public void save() {
-
+        ArrayList<String> strlist = new ArrayList<>();
+        File file = new File(plugin.getDataFolder()+"/synapses.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+        for(Map.Entry<String, Synapse> entry : map.entrySet()) {
+            strlist.add(entry.getKey());
+            File file1 = new File(plugin.getDataFolder()+"/synapse/"+entry.getKey()+".yml");
+            YamlConfiguration config1 = YamlConfiguration.loadConfiguration(file1);
+            entry.getValue().save(config1);
+            try{
+                config1.save(file1);
+            }catch(Exception e) {
+            }
+        }
+        config.set("list", strlist);
+        try{
+            config.save(file);
+        }catch(Exception e) {
+        }
     }
 
     @Override
