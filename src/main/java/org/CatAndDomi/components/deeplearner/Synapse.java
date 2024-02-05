@@ -53,6 +53,7 @@ public class Synapse {
         Neuron n = new Neuron(this);
         numneuronmap.put(neuronnum, n);
         neuronnummap.put(n, neuronnum);
+        neuronnum++;
         return n;
     }
 
