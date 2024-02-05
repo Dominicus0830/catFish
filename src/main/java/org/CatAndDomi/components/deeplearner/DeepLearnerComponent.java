@@ -16,11 +16,6 @@ public class DeepLearnerComponent extends Component {
 
     public DeepLearnerComponent(JavaPlugin plugin) {
         super(plugin);
-    }
-
-    @Override
-    public void load() {
-        super.load();
         Bukkit.getPluginManager().registerEvents(new Events(this), plugin);
         File file = new File(plugin.getDataFolder()+"/synapses.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
@@ -31,6 +26,12 @@ public class DeepLearnerComponent extends Component {
                 map.put(str, new Synapse(config1));
             }
         }
+    }
+
+    @Override
+    public void load() {
+        super.load();
+
     }
 
     public void save() {
