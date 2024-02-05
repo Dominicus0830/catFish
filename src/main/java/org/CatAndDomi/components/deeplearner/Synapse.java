@@ -215,14 +215,14 @@ public class Synapse {
                     }
                 }
             }
-            for(Neuron n : lines.get(line.size())) {
+            for(Neuron n : lines.get(line.size()-1)) {
                 for(Map.Entry<String, Neuron> entry : outputs.entrySet()) {
                     n.weight.put(entry.getValue(), r.nextDouble());
                 }
             }
         }else {
             for(Map.Entry<String, Neuron> entry : inputs.entrySet()) {
-                for(Map.Entry<String, Neuron> entry1 : inputs.entrySet()) {
+                for(Map.Entry<String, Neuron> entry1 : outputs.entrySet()) {
                     entry.getValue().weight.put(entry1.getValue(), r.nextDouble());
                 }
             }
