@@ -24,7 +24,7 @@ public class Neuron {
         this.synapse = synapse;
         input = config.getDouble(loc+".input");
         output = config.getDouble(loc+".output");
-        output = config.getDouble(loc+".errordistance");
+        errordistance = config.getDouble(loc+".errordistance");
     }
 
     public void getMidlinedelta(Neuron from, Neuron to, double value, int num) {
