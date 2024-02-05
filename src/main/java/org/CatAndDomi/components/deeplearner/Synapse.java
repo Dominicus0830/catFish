@@ -18,6 +18,7 @@ public class Synapse {
     public int neuronnum = 0;
     public double totaladding = 0;
     public double learningper = 0.5D;
+    public int outputnum = 0;
 
     public Synapse(YamlConfiguration config) {
         neuronnum = config.getInt("neuronnum");
@@ -47,6 +48,7 @@ public class Synapse {
         for(Map.Entry<Integer, Neuron> entry : numneuronmap.entrySet()) {
             entry.getValue().loadNeurons(config, "neurons."+entry.getKey());
         }
+        outputnum = config.getInt("outputnum");
     }
 
     public Neuron createNeuron() {
@@ -86,6 +88,7 @@ public class Synapse {
         config.set("inputsnumlist", inputsnumlist);
         config.set("outputslist", outputslist);
         config.set("outputsnumlist", outputsnumlist);
+        config.set("outputnum", outputnum);
     }
 
     public Synapse() {
@@ -94,50 +97,41 @@ public class Synapse {
 
     public double getErrorDistance() {
         double d = 0;
+        double b = 0;
         for(Map.Entry<String, Neuron> entry : outputs.entrySet()) {
             double a = entry.getValue().errordistance;
+            b++;
             d+=a*a;
         }
-        return d;
+        return d/b;
     }
 
     public void learning() {
         if(line.size()>0) {
-            for(Neuron n : lines.get(line.size()-1)) {
-                for(Map.Entry<String, Neuron> entry : outputs.entrySet()) {
-                    double a = CatFishMath.sigmoid_pri(1, entry.getValue().input)*2D*entry.getValue().errordistance*learningper;
-                    n.errordistance = n.weight.get(entry.getValue())*a;
-                    n.weight.put(entry.getValue(), n.weight.get(entry.getValue())+n.output*a);
-                    totaladding+=a;
+            for(Map.Entry<String, Neuron> in : inputs.entrySet()) {
+                for(Map.Entry<Neuron, Double> out : in.getValue().weight.entrySet()) {
+                    out.getKey().getMidlinedelta(in.getValue(), out.getKey(), in.getValue().input, line.size());
                 }
             }
             if(line.size()>1) {
-                for(int i = line.size()-2; i>=0; i++) {
+                for(int i = 0; i<line.size()-1; i++) {
                     for(Neuron n : lines.get(i)) {
-                        for(Neuron n1 : lines.get(i+1)) {
-                            double a = CatFishMath.sigmoid_pri(1, n1.input)*2D*n1.errordistance*learningper;
-                            n.errordistance = n.weight.get(n1)*a;
-                            n.weight.put(n1, n.weight.get(n1)+n.output*a);
-                            totaladding+=a;
+                        for(Map.Entry<Neuron, Double> out : n.weight.entrySet()) {
+                            out.getKey().getMidlinedelta(n, out.getKey(), n.output, line.size()-i-1);
                         }
                     }
                 }
             }
-            for(Map.Entry<String, Neuron> entry : inputs.entrySet()) {
-                for(Neuron n : lines.get(0)) {
-                    double a = CatFishMath.sigmoid_pri(1, n.input)*2D*n.errordistance*learningper;
-                    entry.getValue().errordistance = entry.getValue().weight.get(n)*a;
-                    entry.getValue().weight.put(n, entry.getValue().weight.get(n)+entry.getValue().output*a);
-                    totaladding+=a;
+            for(Neuron n : lines.get(line.size()-1)) {
+                for(Map.Entry<Neuron, Double> out : n.weight.entrySet()) {
+                    out.getKey().getMidlinedelta(n, out.getKey(), n.output, 0);
                 }
             }
         }else {
-            for(Map.Entry<String, Neuron> entry : inputs.entrySet()) {
-                for(Map.Entry<String, Neuron> entry1: inputs.entrySet()) {
-                    double a = CatFishMath.sigmoid_pri(1, entry1.getValue().input)*2D*entry1.getValue().errordistance*learningper;
-                    entry.getValue().errordistance = entry.getValue().weight.get(entry1.getValue())*a;
-                    entry.getValue().weight.put(entry1.getValue(), entry.getValue().weight.get(entry1.getValue())+entry.getValue().output*a);
-                    totaladding+=a;
+            for(Map.Entry<String, Neuron> in : inputs.entrySet()) {
+                for(Map.Entry<Neuron, Double> out : in.getValue().weight.entrySet()) {
+                    double b = out.getKey().output;
+                    in.getValue().weight.put(out.getKey(), out.getValue()-learningper*in.getValue().input*b*(1D-b));
                 }
             }
         }
@@ -249,10 +243,16 @@ public class Synapse {
     }
 
     public void createOutputs(String string) {
+        if(!isOutputs(string)) {
+            outputnum++;
+        }
         outputs.put(string, createNeuron());
     }
 
     public void deleteOutputs(String string) {
+        if(isOutputs(string)) {
+            outputnum--;
+        }
         outputs.remove(string);
     }
 

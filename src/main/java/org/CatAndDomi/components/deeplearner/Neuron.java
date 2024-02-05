@@ -27,8 +27,20 @@ public class Neuron {
         output = config.getDouble(loc+".errordistance");
     }
 
+    public void getMidlinedelta(Neuron from, Neuron to, double value, int num) {
+        double a = value*output*(1D-output);
+        if(num==0) {
+            a*=errordistance;
+            from.weight.put(to, from.weight.get(to) - synapse.learningper*a);
+            return;
+        }
+        for(Map.Entry<Neuron, Double> entry : weight.entrySet()) {
+            entry.getKey().getMidlinedelta(from, to, a* entry.getValue()*2D/((double)synapse.outputnum), num-1);
+        }
+    }
+
     public void setpredict(double d) {
-        errordistance = d-output;
+        errordistance = output-d;
     }
 
     public void intoout() {
