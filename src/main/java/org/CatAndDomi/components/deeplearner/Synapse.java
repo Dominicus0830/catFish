@@ -259,4 +259,8 @@ public class Synapse {
         return outputs.get(string)!=null;
     }
 
+    public Neuron getOutputs(String string) {
+        return outputs.get(string);
+    }
+
 }
