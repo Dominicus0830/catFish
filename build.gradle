@@ -53,7 +53,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = 'org.catAndDomi'
             artifactId = 'CatFish'
-            version = '0.0.0.12'
+            version = '0.0.2'
             from components.java
             pom {
                 name = 'CatFish'
