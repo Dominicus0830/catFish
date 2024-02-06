@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'org.CatAndDomi'
-version = '0.0.0.12'
+version = '0.0.2'
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
