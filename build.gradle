@@ -15,74 +15,120 @@ jar {
 
 task A_Fix_Bug {
     doFirst {
-        def currentVersion = project.version.toString()
-        def (major, minor, patch) = currentVersion.tokenize('.')
+        def v = buildFile.getText().find(version)
+        def (major, minor, patch) = v.tokenize('.')
         int newPatch = patch.toInteger() + 1
         String newVersion = major + "." + minor + "." + newPatch
+        String updatedVersion = buildFile.getText().replaceFirst("version = '" + v + "'", "version = '" + newVersion + "'")
         project.version = newVersion
 
-        File pluginFile = file('src/main/resources/plugin.yml')
-        if (pluginFile.exists()) {
-            List<String> lines = pluginFile.readLines()
-            lines = lines.collect { line ->
-                if (line.startsWith('version:')) {
-                    return "version: ${newVersion}"
-                } else {
-                    return line
+        allprojects.forEach(p -> {
+            p.buildFile.setText(p.buildFile.getText().replaceFirst("version = '" + v + "'", "version = '" + newVersion + "'"))
+            println "Project Module : " + p.name
+            p.sourceSets.main.resources.srcDirs().getFiles().forEach(o -> {
+                if (o.getName().equals("plugin.yml")) {
+                    List<String> lines = new ArrayList<String>()
+                    String line
+                    File f = o
+                    println "File : " + f.getAbsolutePath()
+                    FileReader fr = new FileReader(f)
+                    BufferedReader br = new BufferedReader(fr)
+                    while ((line = br.readLine()) != null) {
+                        if (line.contains("version") && !line.contains("api")) {
+                            line = "version: " + newVersion
+                        }
+                        lines.add(line + "\n")
+                    }
+                    fr.close()
+                    br.close()
+                    BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "UTF-8"))
+                    lines.forEach(out::write)
+                    out.close()
                 }
-            }
-            pluginFile.write(lines.join('\n'))
-        }
+            })
+        })
+        buildFile.setText(updatedVersion)
     }
 }
 
 task A_Middle_update {
     doFirst {
-        def currentVersion = project.version.toString()
-        def (major, minor, patch) = currentVersion.tokenize('.')
+        def v = buildFile.getText().find(version)
+        def (major, minor, patch) = v.tokenize('.')
         int newMinor = minor.toInteger() + 1
-        String newVersion = major + "." + newMinor + "." + patch
+        int newPatch = 0
+        String newVersion = major + "." + newMinor + "." + newPatch
+        String updatedVersion = buildFile.getText().replaceFirst("version = '" + v + "'", "version = '" + newVersion + "'")
         project.version = newVersion
 
-        File pluginFile = file('src/main/resources/plugin.yml')
-        if (pluginFile.exists()) {
-            List<String> lines = pluginFile.readLines()
-            lines = lines.collect { line ->
-                if (line.startsWith('version:')) {
-                    return "version: ${newVersion}"
-                } else {
-                    return line
+        allprojects.forEach(p -> {
+            p.buildFile.setText(p.buildFile.getText().replaceFirst("version = '" + v + "'", "version = '" + newVersion + "'"))
+            println "Project Module : " + p.name
+            p.sourceSets.main.resources.srcDirs().getFiles().forEach(o -> {
+                if (o.getName().equals("plugin.yml")) {
+                    List<String> lines = new ArrayList<String>()
+                    String line
+                    File f = o
+                    println "File : " + f.getAbsolutePath()
+                    FileReader fr = new FileReader(f)
+                    BufferedReader br = new BufferedReader(fr)
+                    while ((line = br.readLine()) != null) {
+                        if (line.contains("version") && !line.contains("api")) {
+                            line = "version: " + newVersion
+                        }
+                        lines.add(line + "\n")
+                    }
+                    fr.close()
+                    br.close()
+                    BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "UTF-8"))
+                    lines.forEach(out::write)
+                    out.close()
                 }
-            }
-            pluginFile.write(lines.join('\n'))
-        }
+            })
+        })
+        buildFile.setText(updatedVersion)
     }
 }
 
 task A_Big_update {
     doFirst {
-        def currentVersion = project.version.toString()
-        def (major, minor, patch) = currentVersion.tokenize('.')
+        def v = buildFile.getText().find(version)
+        def (major, minor, patch) = v.tokenize('.')
+        int newMinor = 0
+        int newPatch = 0
         int newMajor = major.toInteger() + 1
-        String newVersion = newMajor + "." + minor + "." + patch
+        String newVersion = newMajor + "." + newMinor + "." + newPatch
+        String updatedVersion = buildFile.getText().replaceFirst("version = '" + v + "'", "version = '" + newVersion + "'")
         project.version = newVersion
 
-        File pluginFile = file('src/main/resources/plugin.yml')
-        if (pluginFile.exists()) {
-            List<String> lines = pluginFile.readLines()
-            lines = lines.collect { line ->
-                if (line.startsWith('version:')) {
-                    return "version: ${newVersion}"
-                } else {
-                    return line
+        allprojects.forEach(p -> {
+            p.buildFile.setText(p.buildFile.getText().replaceFirst("version = '" + v + "'", "version = '" + newVersion + "'"))
+            println "Project Module : " + p.name
+            p.sourceSets.main.resources.srcDirs().getFiles().forEach(o -> {
+                if (o.getName().equals("plugin.yml")) {
+                    List<String> lines = new ArrayList<String>()
+                    String line
+                    File f = o
+                    println "File : " + f.getAbsolutePath()
+                    FileReader fr = new FileReader(f)
+                    BufferedReader br = new BufferedReader(fr)
+                    while ((line = br.readLine()) != null) {
+                        if (line.contains("version") && !line.contains("api")) {
+                            line = "version: " + newVersion
+                        }
+                        lines.add(line + "\n")
+                    }
+                    fr.close()
+                    br.close()
+                    BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "UTF-8"))
+                    lines.forEach(out::write)
+                    out.close()
                 }
-            }
-            pluginFile.write(lines.join('\n'))
-        }
+            })
+        })
+        buildFile.setText(updatedVersion)
     }
 }
-
-
 
 publishing {
     publications {
@@ -108,8 +154,6 @@ publishing {
         }
     }
 }
-
-
 
 repositories {
     mavenCentral()
