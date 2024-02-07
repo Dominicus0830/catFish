@@ -1,55 +1,15 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
 
 group = 'org.CatAndDomi'
-version = '0.2.0'
+version = '0.0.0.11'
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
-jar {
-    archiveName("${project.name}-${version}.jar")
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId group
-            artifactId project.name
-            version version
-
-            artifact("build/libs/$project.name-$version" + ".jar") {
-                extension 'jar'
-            }
-        }
-    }
-    repositories {
-        maven {
-            credentials {
-                username = repoUsername
-                password = repoPassword
-            }
-            def releasesRepoUrl = "http://nexus.dominicus.kr:8081/repository/CatFish/"
-            url = releasesRepoUrl
-            allowInsecureProtocol = true
-        }
-    }
-}
-
-
-
 repositories {
     mavenCentral()
-    maven {
-        credentials {
-            username = repoUsername
-            password = repoPassword
-        }
-        url "http://nexus.dominicus.kr:8081/repository/CatFish/"
-        allowInsecureProtocol = true
-    }
 
     //NMS
     maven {
@@ -86,6 +46,39 @@ dependencies {
 compileJava.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'org.catAndDomi'
+            artifactId = 'CatFish'
+            version = '0.0.0.11'
+            from components.java
+            pom {
+                name = 'CatFish'
+                description = 'domi and cat'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'domi_and_cat'
+                        name = 'domi_and_cat'
+                        email = 'dominicus0830@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+build {
+    sourceCompatibility = 17
+    targetCompatibility = 17
 }
 
 test {
