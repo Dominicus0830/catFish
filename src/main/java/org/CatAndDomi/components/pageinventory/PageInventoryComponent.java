@@ -2,6 +2,7 @@ package org.CatAndDomi.components.pageinventory;
 
 import org.CatAndDomi.components.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -15,6 +16,8 @@ public class PageInventoryComponent extends Component {
 
     Map<String, PageInventory> invmap = new HashMap<>();
     Map<Player, InventoryOpener> openermap = new HashMap<>();
+    Location minloc;
+    Location maxloc;
 
     Class<? extends PageInventory> clz;
     Class<? extends InventoryOpener> clz1;
@@ -35,7 +38,7 @@ public class PageInventoryComponent extends Component {
             File file1 = new File(plugin.getDataFolder()+"/inventorydata/" + key + ".yml");
             YamlConfiguration config1 = YamlConfiguration.loadConfiguration(file1);
             try{
-                invmap.put(key, clz.getDeclaredConstructor(new Class[]{PageInventoryComponent.class, YamlConfiguration.class}).newInstance(this, config1));
+                invmap.put(key, clz.getDeclaredConstructor(new Class[]{String.class, PageInventoryComponent.class, YamlConfiguration.class}).newInstance(key, this, config1));
             }catch(Exception e) {
                 e.printStackTrace();
             }

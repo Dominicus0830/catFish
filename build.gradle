@@ -5,12 +5,92 @@ plugins {
 }
 
 group = 'org.CatAndDomi'
-version = '0.2.0'
+version = '0.3.0'
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
 jar {
     archiveName("${project.name}-${version}.jar")
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId group
+            artifactId project.name
+            version version
+
+            artifact("build/libs/$project.name-$version" + ".jar") {
+                extension 'jar'
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username = repoUsername
+                password = repoPassword
+            }
+            def releasesRepoUrl = "http://nexus.dominicus.kr:8081/repository/CatFish-release/"
+            def snapshotsRepoUrl = "http://nexus.dominicus.kr:8081/repository/CatFish-snapshot/"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            allowInsecureProtocol = true
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        credentials {
+            username = repoUsername
+            password = repoPassword
+        }
+        url "http://nexus.dominicus.kr:8081/repository/CatFish/"
+        allowInsecureProtocol = true
+    }
+
+    //NMS
+    maven {
+        url 'https://repo.dmulloy2.net/repository/public/'
+    }
+    maven {
+        url 'https://libraries.minecraft.net/'
+        metadataSources {
+            mavenPom()
+            artifact()
+            ignoreGradleMetadataRedirection()
+        }
+    }
+
+
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
+    }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.jetbrains:annotations:24.0.0'
+    compileOnly 'org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot:1.20.4-R0.1-SNAPSHOT'
+}
+
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+build {
+    sourceCompatibility = 17
+    targetCompatibility = 17
 }
 
 task A_Fix_Bug {
@@ -128,84 +208,6 @@ task A_Big_update {
         })
         buildFile.setText(updatedVersion)
     }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId group
-            artifactId project.name
-            version version
-
-            artifact("build/libs/$project.name-$version" + ".jar") {
-                extension 'jar'
-            }
-        }
-    }
-    repositories {
-        maven {
-            credentials {
-                username = repoUsername
-                password = repoPassword
-            }
-            def releasesRepoUrl = "http://nexus.dominicus.kr:8081/repository/CatFish/"
-            url = releasesRepoUrl
-            allowInsecureProtocol = true
-        }
-    }
-}
-
-repositories {
-    mavenCentral()
-    maven {
-        credentials {
-            username = repoUsername
-            password = repoPassword
-        }
-        url "http://nexus.dominicus.kr:8081/repository/CatFish/"
-        allowInsecureProtocol = true
-    }
-
-    //NMS
-    maven {
-        url 'https://repo.dmulloy2.net/repository/public/'
-    }
-    maven {
-        url 'https://libraries.minecraft.net/'
-        metadataSources {
-            mavenPom()
-            artifact()
-            ignoreGradleMetadataRedirection()
-        }
-    }
-
-
-    maven {
-        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
-        content {
-            includeGroup 'org.bukkit'
-            includeGroup 'org.spigotmc'
-        }
-    }
-    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
-    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
-}
-
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    compileOnly 'org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT'
-    compileOnly 'org.spigotmc:spigot:1.20.4-R0.1-SNAPSHOT'
-}
-
-compileJava.options.encoding = 'UTF-8'
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-build {
-    sourceCompatibility = 17
-    targetCompatibility = 17
 }
 
 test {
