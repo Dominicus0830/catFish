@@ -4,16 +4,36 @@
 ## GRADLE
 
 ## 리포지토리 - Repository
+### Gradle
 ```gradle
 maven {
-        url "http://nexus.dominicus.kr:8081/repository/CatFish/"
+        url "http://nexus.dominicus.kr:8081/repository/CatFish-release/"
         allowInsecureProtocol = true
     }
 ```
+### Maven
+```xml
+<repositories>
+  <repository>
+    <id>catfish-release</id>
+    <url>http://nexus.dominicus.kr:8081/repository/CatFish-release/</url>
+  </repository>
+</repositories>
+```
 
 ## 디펜던시 - Dependencies
+### Gradle
 ```gradle
-implementation 'org.CatAndDomi:catFish:0.2.0'
+implementation 'org.CatAndDomi:catFish:0.3.0'
+```
+
+### Maven
+```xml
+<dependency>
+  <groupId>org.CatAndDomi</groupId>
+  <artifactId>catFish</artifactId>
+  <version>0.3.0</version>
+</dependency>
 ```
 
 ## API
