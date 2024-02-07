@@ -5,14 +5,15 @@
 
 ## 리포지토리 - Repository
 ```gradle
-maven { 
-    url = 'maven { url 'https://jitpack.io' }'
-}
+maven {
+        url "http://nexus.dominicus.kr:8081/repository/CatFish/"
+        allowInsecureProtocol = true
+    }
 ```
 
 ## 디펜던시 - Dependencies
 ```gradle
-implementation 'com.github.Dominicus0830:catFish:0.0.0.10'
+implementation 'org.CatAndDomi:catFish:0.2.0'
 ```
 
 ## API
