@@ -13,6 +13,77 @@ jar {
     archiveName("${project.name}-${version}.jar")
 }
 
+task A_Fix_Bug {
+    doFirst {
+        def currentVersion = project.version.toString()
+        def (major, minor, patch) = currentVersion.tokenize('.')
+        int newPatch = patch.toInteger() + 1
+        String newVersion = major + "." + minor + "." + newPatch
+        project.version = newVersion
+
+        File pluginFile = file('src/main/resources/plugin.yml')
+        if (pluginFile.exists()) {
+            List<String> lines = pluginFile.readLines()
+            lines = lines.collect { line ->
+                if (line.startsWith('version:')) {
+                    return "version: ${newVersion}"
+                } else {
+                    return line
+                }
+            }
+            pluginFile.write(lines.join('\n'))
+        }
+    }
+}
+
+task A_Middle_update {
+    doFirst {
+        def currentVersion = project.version.toString()
+        def (major, minor, patch) = currentVersion.tokenize('.')
+        int newMinor = minor.toInteger() + 1
+        String newVersion = major + "." + newMinor + "." + patch
+        project.version = newVersion
+
+        File pluginFile = file('src/main/resources/plugin.yml')
+        if (pluginFile.exists()) {
+            List<String> lines = pluginFile.readLines()
+            lines = lines.collect { line ->
+                if (line.startsWith('version:')) {
+                    return "version: ${newVersion}"
+                } else {
+                    return line
+                }
+            }
+            pluginFile.write(lines.join('\n'))
+        }
+    }
+}
+
+task A_Big_update {
+    doFirst {
+        def currentVersion = project.version.toString()
+        def (major, minor, patch) = currentVersion.tokenize('.')
+        int newMajor = major.toInteger() + 1
+        String newVersion = newMajor + "." + minor + "." + patch
+        project.version = newVersion
+
+        File pluginFile = file('src/main/resources/plugin.yml')
+        if (pluginFile.exists()) {
+            List<String> lines = pluginFile.readLines()
+            lines = lines.collect { line ->
+                if (line.startsWith('version:')) {
+                    return "version: ${newVersion}"
+                } else {
+                    return line
+                }
+            }
+            pluginFile.write(lines.join('\n'))
+        }
+    }
+}
+
+
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
