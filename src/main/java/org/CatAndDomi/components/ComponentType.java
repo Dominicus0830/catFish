@@ -1,6 +1,6 @@
 package org.CatAndDomi.components;
 
-import org.CatAndDomi.components.POS.POSComponet;
+import org.CatAndDomi.components.pos.POSComponet;
 import org.CatAndDomi.components.command.CommandComponent;
 import org.CatAndDomi.components.deeplearner.DeepLearnerComponent;
 import org.CatAndDomi.components.math.MathTriangleComponent;
