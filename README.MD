@@ -7,8 +7,7 @@
 ### Gradle
 ```gradle
 maven {
-        url "http://nexus.dominicus.kr:8081/repository/CatFish-release/"
-        allowInsecureProtocol = true
+        url "https://nexus.dominicus.kr/repository/CatFish-release/"
     }
 ```
 ### Maven
@@ -16,7 +15,7 @@ maven {
 <repositories>
   <repository>
     <id>catfish-release</id>
-    <url>http://nexus.dominicus.kr:8081/repository/CatFish-release/</url>
+    <url>https://nexus.dominicus.kr/repository/CatFish-release/</url>
   </repository>
 </repositories>
 ```
